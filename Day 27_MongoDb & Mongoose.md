@@ -49,7 +49,7 @@ https://docs.mongodb.com/manual/tutorial/update-documents/index.html
 
 
 
-#### Mongoose
+## Mongoose
 
 https://mongoosejs.com/docs/index.html
 
@@ -113,6 +113,18 @@ https://mongoosejs.com/docs/index.html
 - ##### Promises vs Async Await
 
   ```js
+  //callback method
+  app.get("/kittens", (req, res) => {
+    Kitten.find((err, kittens, next) => {
+      if (err) {
+        console.error(err);
+        next(err);
+      }
+      res.send(kittens);
+    });
+  });
+  
+  
   //promise
   app.get("/kittens", (req, res) => {
     Kitten.find()
@@ -121,15 +133,63 @@ https://mongoosejs.com/docs/index.html
   });
   
   //async & await
-  app.get("/kittens", async (req, res) => {
-    await Kitten.find((err, kittens, next) => {
-      if (err) {
-        console.error(err);
-        next(err);
-      }
+  app.get("/kittens", async (req, res, next) => {
+    try {
+      const kittens = await Kitten.find();
       res.send(kittens);
-    });
+    } catch (err) {
+      next(err);
+    }
   });
   ```
 
   
+
+##### Schema Types
+
+https://mongoosejs.com/docs/schematypes.html
+
+###### string
+
+- enum = Array of valid words that we can use 
+
+```js
+//essentially printing out "North"
+const direction = DIR.N
+
+// this is the javascript enum:
+DIR = {
+    N: "North"
+    S: "South"
+    E: "East"
+    W: "West"
+}
+```
+
+
+
+- creating unique text index
+
+```js
+router.post("/new", async (req, res, next) => {
+  const newKitten = req.body;
+  const addKitten = new Kitten(newKitten);
+
+  try {
+    //indexes the database
+    await Kitten.init();
+    //saves the name in the database
+    //this throws the error when the name is not unique
+    await addKitten.save();
+    res.send(addKitten);
+  } catch (err) {
+    if (err.name === "ValidationError") {
+      err.status = 400;
+    }
+    next(err);
+  }
+});
+```
+
+
+

@@ -79,9 +79,7 @@ Although this will work for window platform, when uploaded to server, it is not 
 
 ** require to run: *chmod u+x apple*
 
-
-
- ![1567475384327](C:\Users\lisha\AppData\Roaming\Typora\typora-user-images\1567475384327.png)
+ ![1567475384327](C:\Users\lisha\Documents\JumpStart\images\1567475384327.png)
 
  `.bash_profile`= 
 
