@@ -2,13 +2,15 @@
 
 ## MongoDB
 
+- start the mongoDB server `mongod`
+
 - set the default dbpath - in git bash
 
   `mongod --dbpath ~/data/db`
 
-- Mongo is the server, there are many ways to speak to the server 
+- MongoDB is the server, there are many ways to speak to the server 
 
-  - Mongo shell is a user interface that talks to the mongodb server through an API
+  - Mongo shell is a user interface that talks to the mongoDB server through an API
   - Azure Cosmos - vs Code
   - Compass
   - Express
@@ -21,7 +23,7 @@
 
 - show database - `show dbs`
 
-- to create a test db`use test`
+- to create a test db `use test`
 
   - however, the db will not show until a new collection is created
 
@@ -34,6 +36,8 @@
   returns: `{ "_id" : ObjectId("5d9bf7d9b1fdde669c75d6cc"), "name" : "bob" }`
 
   `book._id` is used to return this ObjectId
+  
+- `db.myFirstCollection.drop()`- to delete the collection
 
 https://docs.mongodb.com/manual/tutorial/update-documents/index.html
 
@@ -50,6 +54,12 @@ https://docs.mongodb.com/manual/tutorial/update-documents/index.html
 
 
 ## Mongoose
+
+https://code.tutsplus.com/articles/an-introduction-to-mongoose-for-mongodb-and-nodejs--cms-29527
+
+Mongoose is an Object Document Mapper (ODM). Mongoose allows you to define objects with a strongly-typed schema that is mapped to a MongoDB document.
+
+- wrapper around MongoDB
 
 https://mongoosejs.com/docs/index.html
 
@@ -110,10 +120,13 @@ https://mongoosejs.com/docs/index.html
 
   
 
-- ##### Promises vs Async Await
+- ##### Callbacks, Promises and Async Await
 
+  - 3 ways to wait for a response for things that take time
+  - anything that can be promise based can be async await, if the node version supports it
+  
   ```js
-  //callback method
+  //callback method - the library(mongoose) has to support it to allow the callback to be converted into promise-based - otherwise may need to use another API to promisify the callback
   app.get("/kittens", (req, res) => {
     Kitten.find((err, kittens, next) => {
       if (err) {
@@ -123,7 +136,6 @@ https://mongoosejs.com/docs/index.html
       res.send(kittens);
     });
   });
-  
   
   //promise
   app.get("/kittens", (req, res) => {
@@ -140,9 +152,9 @@ https://mongoosejs.com/docs/index.html
     } catch (err) {
       next(err);
     }
-  });
+});
   ```
-
+  
   
 
 ##### Schema Types
@@ -190,6 +202,16 @@ router.post("/new", async (req, res, next) => {
   }
 });
 ```
+
+
+
+##### Express + Mongoose => database Relationship when saving
+
+1. express + Mongoose ------`init()`-----> database
+   - indexes the item within the database
+2. express + Mongoose <----- reply ok------- database
+3. express + Mongoose -----`save()`-----> database
+   - will throw error if cannot save
 
 
 

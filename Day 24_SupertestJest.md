@@ -2,6 +2,21 @@
 
 ## Supertest / Jest 
 
+##### Install Supertest and Jest	
+
+`npm install supertest --save-dev``
+
+``npm install jest --save-dev`
+
+- require to add in package.json `scripts`
+
+  ```js
+  "test":"jest"
+  "test:watch": "jest --watch"
+  ```
+
+
+
 ##### Mocking Modules
 
 - the database is mocked when we are testing the routes 

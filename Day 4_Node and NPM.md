@@ -2,6 +2,19 @@
 
 ## Javascript - Node and NPM
 
+#### Understanding Node versions
+
+https://nodejs.org/en/about/releases/
+
+- take not that the even no. are usually converted to LTS(long term support)
+- the odd no. versions are usually short-lived and "beta" versions
+
+https://node.green/
+
+- to check which node version supports what functions
+
+
+
 https://thoughtworks-jumpstart.gitbook.io/book/javascript/toolchain/node-and-npm
 
 NPM = node package manager
