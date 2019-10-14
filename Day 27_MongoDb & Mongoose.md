@@ -157,7 +157,7 @@ https://mongoosejs.com/docs/index.html
   
   
 
-##### Schema Types
+#### Schema Types
 
 https://mongoosejs.com/docs/schematypes.html
 
@@ -202,6 +202,14 @@ router.post("/new", async (req, res, next) => {
   }
 });
 ```
+
+
+
+###### For images
+
+- will convert the images to binary and stored as a string format
+- however, not efficient to store it in this format
+- there are more efficient services to save images like AWS S3?
 
 
 

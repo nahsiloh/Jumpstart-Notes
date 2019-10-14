@@ -7,8 +7,8 @@
 ##### Model.create() vs Model.prototype.save()
 
 - `create()`allows for saving of more than one document to the database
-- essentially ``create()` is a for loop created to allow for an array of objects that are passed in to be saved one by one
-- but essentially they are the same. `Model.create()` automatically triggers `save()`
+- essentially `create()` is a for loop created to allow for an array of objects that are passed in to be saved one by one
+- they are the same. `Model.create()` automatically triggers `save()`
 
 
 
@@ -68,8 +68,20 @@ ownerSchema.virtual("fullName").get(function() {
   - `.find()`
   - `.findOne()`
 - Update
-  - `findOneAndUpdate(condition, update)`
+  
+  - `findOneAndUpdate(condition, update)` 
+  
+    - HTTP method : [PATCH]
+  
+    - eg. `{name:"fluffy", age:5}` => `{name:"fluffy", age: 7}`
+  
+  - `findOneAndReplace()` 
+  
+    - HTTP method: [PUT]
+    - replaces the entire object/ document
+    - eg. `{name:"fluffy", age: 5}` => `{fruit:"watermelon"}`
 - Delete
+  
   - `findOneAndDelete()`
 
 
@@ -88,7 +100,7 @@ https://www.npmjs.com/package/cross-env
 }
 ```
 
-- Express allows to use `app.get("env")` but some other APIs may not support this, thus will need to set using `process.env.NODE_ENV`
+- Express allows to use `app.get("env")` but some other APIs may not support this, thus will need to set using `process.env.NODE_ENV` (only exists in the node environment)
 
 
 
@@ -133,3 +145,83 @@ module.exports = {
 
 https://github.com/nodkz/mongodb-memory-server
 
+
+
+##### Testing kittens 
+
+```js
+describe("[GET]/kittens", () => {
+    it("returns all kittens", () => {
+        const expectedKittens = [
+            { name: "fluffy", age: 5, sex: "female" },
+            { name: "puffy", age: 5, sex: "female" }
+        ];
+
+        return (
+            request(app)
+            .get("/kittens")
+            .expect(200)
+
+            // for loop way to check its property
+            .expect(data => {
+               for (let i = 0; i < data.body.length; i++) {
+                 expect(data.body[i].name).toBe(expectedKittens[i].name);
+                 expect(data.body[i].age).toBe(expectedKittens[i].age);
+                 expect(data.body[i].sex).toBe(expectedKittens[i].sex);
+               }
+             })
+
+            // destructuring the keys
+             .expect(data => {
+               for (let i = 0; i < data.body.length; i++) {
+                 const keys = Object.keys(expectedKittens[0]);
+                 for (let j = 0; j < keys.length; j++) {
+                   expect(data.body[i][keys[j]]).toBe(expectedKittens[i][keys[j]]);
+                 }
+               }
+             })
+
+            //comparing the objects rather than the individual properties
+            //however, there are additional items within the objects
+             .expect(data => {
+               expectedKittens.forEach((kitten, index) => {
+                 expect(data.body[index]).toEqual(expect.objectContaining(kitten));
+               });
+             })
+
+            // destructuring the data
+            .expect(({ body: actualKittens }) => {
+                expectedKittens.forEach((kitten, index) => {
+                    expect(actualKittens[index]).toEqual(
+                        expect.objectContaining(kitten)
+                    );
+                });
+            })
+        );
+    });
+});
+```
+
+Converting it to an async and await function
+
+```js
+
+```
+
+
+
+```js
+actualKittens.forEach((kitten, i) => {
+            // Check each property
+            expect(kitten.name).toEqual(expectedKittens[i].name);
+            expect(kitten.age).toEqual(expectedKittens[i].age);
+            expect(kitten.sex).toEqual(expectedKittens[i].sex);
+            // Check entire object
+            expect(kitten).toEqual(expect.objectContaining(expectedKittens[i]));
+          });
+
+
+```
+
+`{body:actualKittens}` = there is a data that is going to be extracted out.
+async await pulls the function from the inner scope to the outer scope

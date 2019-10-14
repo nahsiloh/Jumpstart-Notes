@@ -4,7 +4,7 @@
 
 ##### Install Supertest and Jest	
 
-`npm install supertest --save-dev``
+`npm install supertest --save-dev`
 
 ``npm install jest --save-dev`
 
