@@ -80,9 +80,13 @@ ownerSchema.virtual("fullName").get(function() {
     - HTTP method: [PUT]
     - replaces the entire object/ document
     - eg. `{name:"fluffy", age: 5}` => `{fruit:"watermelon"}`
+  - `findByIdAndUpdate()`
 - Delete
   
   - `findOneAndDelete()`
+  
+    
+      
 
 
 

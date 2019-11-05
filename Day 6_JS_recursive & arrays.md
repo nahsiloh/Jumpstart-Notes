@@ -126,7 +126,7 @@ const markedPokemons = data.map(item =>{
 })
 ```
 
-
+ 
 
 - #### filter()
 

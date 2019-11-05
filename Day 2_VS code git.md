@@ -86,14 +86,13 @@ set name and email:
   
   - 2 options to push remotely
 - `git push origin master` = where "origin" can be changed to another name
-    
+  
     - `git push --set-upstream origin master` is the same as `git push -u origin master` = "origin" is set by default
 
 
 
 
-- #### Pull vs fetch
+- #### Pull vs fetc
 
   - `git pull` = `git fetch`+`git merge`
 
-    
