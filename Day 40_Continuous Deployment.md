@@ -123,7 +123,7 @@ need to get OAuth token from netlify
 
 - to check in terminal
 
-`export NETLIFY_AUTH_TOKEN=29b8d686ae95d84d1a67101bd21a2a1cb045e85c2a4db72862d4eb432d263811`
+`export NETLIFY_AUTH_TOKEN=<API KEY>`
 
 
 
