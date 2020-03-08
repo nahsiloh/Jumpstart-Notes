@@ -135,7 +135,7 @@ https://www.npmjs.com/package/dotenv
 
 2. change the DB URL
 
-   - at lease 2 DB URL - localhost and real production URL
+   - at least 2 DB URL - localhost and real production URL
 
 
 

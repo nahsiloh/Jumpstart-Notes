@@ -27,8 +27,9 @@ IP address - public (typically for servers. Which will also have private network
 - ###### HTTP
 
   - `http://`  - always needs a request by the client for a response to be returned
-    - eg. how do you create a live website? - will required polling, i.e `setInterval()`
-
+    
+  - eg. how do you create a live website? - will required polling, i.e `setInterval()`
+    
   - stateless protocol - does not require the server to retain information
 
     - therefore, uses cookies. The browser stores the cookies from the website and returns back the cookies data to the website when a request is made 
@@ -55,7 +56,12 @@ IP address - public (typically for servers. Which will also have private network
 
 - ###### transport layer 
 
-  = TCP(transmission control protocol) - breaks down the data into small chunks
+  = TCP(transmission control protocol) - breaks down the data into small chunks (packet)
+
+  - when data is sent, will check if the data is sent
+  - used by HTTP
+
+  = UDP- does not check the data that is sent
 
 - ###### application layer 
 
